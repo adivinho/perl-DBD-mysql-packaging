@@ -77,6 +77,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/auto/DBD/
 %{_mandir}/man3/*.3*
+%{perl_vendorlib}/Bundle/DBD/mysql.pm
 
 %changelog
 * Tue Jan 14 2020 Evgeniy Patlan <evgeniy.patlan@percona.com> - 4.050-4
