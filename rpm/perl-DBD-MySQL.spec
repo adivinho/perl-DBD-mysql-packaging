@@ -20,7 +20,9 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBI) >= 1.609
 BuildRequires:  perl(DBI::DBD)
+%if 0%{?rhel} != 10
 BuildRequires:  perl(Devel::CheckLib)
+%endif
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Basename)
