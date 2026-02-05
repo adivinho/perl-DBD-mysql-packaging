@@ -22,6 +22,7 @@ override_dh_auto_configure:
 	sed -i 's:-lperconaserverclient::g' Makefile
 	sed -i 's:CCCDLFLAGS = -fPIC:CCCDLFLAGS = -fPIC -fpermissive:' Makefile
 	sed -i 's:-L/usr/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu/libperconaserverclient.a -L/usr/lib/x86_64-linux-gnu:g' Makefile
+	sed -i 's:-lssl:-Wl,--no-as-needed -lssl:g' Makefile
 
 override_dh_builddeb:
 	dh_builddeb -- -Zgzip
