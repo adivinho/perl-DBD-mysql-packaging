@@ -220,7 +220,7 @@ install_deps() {
         fi
         yum -y install gcc-c++
         add_percona_yum_repo
-        if [ "x$RHEL" = "x8" -o "x$RHEL" == "x9" -o "x$RHEL" == "x2023" ]; then
+        if [ "x$RHEL" = "x8" -o "x$RHEL" == "x9" -o "x$RHEL" == "x10" -o "x$RHEL" == "x2023" ]; then
             yum -y install dnf-plugins-core
             if [ "x$RHEL" = "x8" ]; then
                 dnf module -y disable mysql
@@ -237,7 +237,11 @@ install_deps() {
             rm -r /var/cache/dnf
             dnf -y upgrade
             yum -y install openssl-devel rpmdevtools bison yum-utils percona-server-devel percona-server-server perl-ExtUtils-MakeMaker perl-Data-Dumper gcc perl-DBI perl-generators
-            if [ "x$RHEL" != "x2023" ]; then
+            if [ "x$RHEL" = "x10" ]; then
+                yum -y install zlib-devel
+                yum -y install gcc g++
+            fi
+            if [ "x$RHEL" != "x2023" -o "x$RHEL" != "x10" ]; then
                 yum -y install gcc-toolset-12-gcc gcc-toolset-12-gcc-c++ gcc-toolset-12-binutils gcc-toolset-12-annobin-annocheck gcc-toolset-12-annobin-plugin-gcc gcc-toolset-12-libatomic-devel
                 if [ x"$ARCH" = "xx86_64" ]; then
                     pushd /opt/rh/gcc-toolset-12/root/usr/lib/gcc/x86_64-redhat-linux/12/plugin/
