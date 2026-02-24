@@ -20,7 +20,9 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBI) >= 1.609
 BuildRequires:  perl(DBI::DBD)
+%if 0%{?rhel} != 10
 BuildRequires:  perl(Devel::CheckLib)
+%endif
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Basename)
@@ -77,6 +79,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/auto/DBD/
 %{_mandir}/man3/*.3*
+%exclude %{perl_vendorarch}/Bundle/DBD/mysql.pm
 
 %changelog
 * Tue Jan 14 2020 Evgeniy Patlan <evgeniy.patlan@percona.com> - 4.050-4

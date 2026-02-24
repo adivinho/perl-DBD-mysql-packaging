@@ -2,7 +2,8 @@
 
 PACKAGE = $(shell dh_listpackages)
 TMP     = $(CURDIR)/debian/$(PACKAGE)
-ARCHLIB := $(shell perl -MConfig -e 'print $$Config{vendorarch}')
+ARCHLIB = $(shell perl -MConfig -e 'print $$Config{vendorarch}')
+DEB_HOST_GNU_CPU ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
 
@@ -18,10 +19,15 @@ export MYSQL_DBNAME=test
 
 override_dh_auto_configure:
 	LC_ALL=C.UTF-8 dh_auto_configure
-	sed -i 's/x86_64-linux-gnu-gcc/x86_64-linux-gnu-g++/g' Makefile
 	sed -i 's:-lperconaserverclient::g' Makefile
 	sed -i 's:CCCDLFLAGS = -fPIC:CCCDLFLAGS = -fPIC -fpermissive:' Makefile
+ifeq ($(DEB_HOST_GNU_CPU),aarch64)
+	sed -i 's/aarch64-linux-gnu-gcc/aarch64-linux-gnu-g++/g' Makefile
+	sed -i 's:-L/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/libperconaserverclient.a -L/usr/lib/aarch64-linux-gnu:g' Makefile
+else
+	sed -i 's/x86_64-linux-gnu-gcc/x86_64-linux-gnu-g++/g' Makefile
 	sed -i 's:-L/usr/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu/libperconaserverclient.a -L/usr/lib/x86_64-linux-gnu:g' Makefile
+endif
 
 override_dh_builddeb:
 	dh_builddeb -- -Zgzip
