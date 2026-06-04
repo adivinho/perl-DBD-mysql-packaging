@@ -278,7 +278,7 @@ install_deps() {
             dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
         fi
         DEBIAN_FRONTEND=noninteractive apt-get -y install devscripts equivs libdevel-checklib-perl libssl-dev libtest-deep-perl libtest-deep-type-perl
-        DEBIAN_FRONTEND=noninteractive apt-get -y install percona-server-server libperconaserverclient22-dev
+        DEBIAN_FRONTEND=noninteractive apt-get -y install percona-server-server libperconaserverclient24-dev
         CURPLACE=$(pwd)
         cd $WORKDIR
         link=$(echo "${PACKAGING_REPO}" | sed -re 's|github.com|raw.githubusercontent.com|; s|.git$||')/"${PRBRANCH}"/debian/control
