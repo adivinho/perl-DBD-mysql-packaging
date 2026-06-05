@@ -276,6 +276,7 @@ install_deps() {
         if [ "x${DEBIAN_VERSION}" = "xnoble" -o "x${DEBIAN_VERSION}" = "xtrixie" -o "x${DEBIAN_VERSION}" = "xresolute" ]; then
             wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
             dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+            apt-get -y install libxcrypt-dev
         fi
         DEBIAN_FRONTEND=noninteractive apt-get -y install devscripts equivs libdevel-checklib-perl libssl-dev libtest-deep-perl libtest-deep-type-perl
         DEBIAN_FRONTEND=noninteractive apt-get -y install percona-server-server libperconaserverclient24-dev
